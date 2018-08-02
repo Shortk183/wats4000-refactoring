@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import axios from 'axios';
-
+import {API} from '@/common/api';
+import WeatherSummary from '@/components/WeatherSummary';
 export default {
   name: 'Forecast',
   data () {
@@ -52,11 +52,9 @@ export default {
   },
   created () {
     // TODO: Improve base config for API
-    axios.get('//api.openweathermap.org/data/2.5/forecast', {
+    API.get('forecast', {
       params: {
-          id: this.$route.params.cityId,
-          units: 'imperial',
-          APPID: 'YOUR_APPID_HERE'
+          id: this.$route.params.cityId
       }
     })
     .then(response => {
@@ -86,8 +84,11 @@ export default {
         hour = hour + 'AM';
       }
       //let year = date.getFullYear();
-      return `${ months[month] } ${ daynum } @ ${ hour }`;
-    }
+       return `${ months[month] } ${ daynum } @ ${ hour }`;
+    },
+    components: {
+    'weather-summary': WeatherSummary
+  }
   }
 }
 </script>

@@ -38,8 +38,8 @@
 </template>
 
 <script>
-import axios from 'axios';
-
+import {API}from '@/common/api';
+import WeatherSummary from '@/components/WeatherSummary';
 export default {
   name: 'CurrentWeather',
   data () {
@@ -50,12 +50,10 @@ export default {
     }
   },
   created () {
-    // TODO: Improve base config for API
-    axios.get('//api.openweathermap.org/data/2.5/weather', {
+  
+    API.get('weather', {
       params: {
-          id: this.$route.params.cityId,
-          units: 'imperial',
-          APPID: 'YOUR_APPID_HERE'
+          id: this.$route.params.cityId
       }
     })
     .then(response => {
@@ -64,6 +62,9 @@ export default {
     .catch(error => {
       this.errors.push(error)
     });
+  },
+  components: {
+    'weather-summary': WeatherSummary
   }
 }
 </script>
