@@ -15,15 +15,11 @@
         <weather-data v-bind:weatherData="forecast.main"></weather-data>
          </li>
     </ul>
-    <div v-else-if="errors.length > 0">
-      <h2>There was an error fetching weather data.</h2>
-      <ul class="errors">
-        <li v-for="error in errors">{{ error }}</li>
-      </ul>
-    </div>
+    
     <div v-else>
       <h2>Loading...</h2>
     </div>
+    <error-list v-bind:errorList="errors"></error-list>
   </div>
 </template>
 
@@ -31,6 +27,7 @@
 import {API} from '@/common/api';
 import WeatherSummary from '@/components/WeatherSummary';
 import WeatherData from '@/components/WeatherData';
+import ErrorList from '@/components/ErrorList';
 export default {
   name: 'Forecast',
   data () {
@@ -78,7 +75,8 @@ export default {
     },
     components: {
     'weather-summary': WeatherSummary,
-    'weather-data': WeatherData
+    'weather-data': WeatherData,
+    'error-list' : ErrorList
     }
   }
 </script>
